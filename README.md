@@ -1,5 +1,5 @@
 # android_Handler
-what‘s  Handler? Howto use it?Let's sum up.
+what‘s  Handler? Howto use it?Let's sum up.<br/>
 1.handler是android给我们用来更新UI的一套机制，也是一套消息的处理机制，我们可以通过他来发送消息，也可以用来处理消息
 framework中所有的active中的生命周期的毁掉方法都是通过handler发送消息，根据不同的message做分支处理.
 事件传递用处也很广泛.
