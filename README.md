@@ -27,6 +27,7 @@ Handler内部与Looper进行关联，也就是在Handler的内部可以找到loo
 首先创建一个线程，继承Thread,在县曾中实现run方法，创建一个handler对象，在run方法里调用Looper.preper()方法创建一个looper,初始化handler,默认情况下拿到当前线程的looper,拿到之后，处理Handler对象中的Handler的HandleMessage方法.<br>
 创建完成后调用Looper.loop()方法循环处理消息.<br>
 用法是创建MyThread对象，在onCreate中new出对象，调用start()方法休眠半秒钟之后，调用thread.handler.sendEmptyMessage(1);来处理此消息
-#HandlerThread是什么？
-
+#HandlerThread创建时容易遇到的问题
+当我们创建Handler对象的时候会传入一个thread.looper对象参数，这个参数是创建在MyThread中的
+，有可能发生的是当我们在创建Handler对象的时候looper对象并没有创建好，从而抛出了一个空指针异常，这种多线程并发的解决方法是new出一个HandlerThread对象，通过HandlerThread.getLooper就可以解决这种问题。
 
