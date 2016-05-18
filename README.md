@@ -23,5 +23,10 @@ looper内部包含了一个消息队列也就是MessageQueue,所有的handler发
 looper.looper方法，就是一个死循环，不断地从MessageQueue取出消息，如果有消息就处理，没有就阻塞<br>
 Handler内部与Looper进行关联，也就是在Handler的内部可以找到looper,找到了Looper也就是找到了MessageQueue,在Handler中发送消息，其实是想MwssageQueue队列中发送消息
 总的来说:handler负责发送消息，looper负责接收消息，并直接把消息传递给handler自己,MessageQueue就是一个存储消息的容器
+#如何实现自定义线程相关的handler如何实现？
+首先创建一个线程，继承Thread,在县曾中实现run方法，创建一个handler对象，在run方法里调用Looper.preper()方法创建一个looper,初始化handler,默认情况下拿到当前线程的looper,拿到之后，处理Handler对象中的Handler的HandleMessage方法.<br>
+创建完成后调用Looper.loop()方法循环处理消息.<br>
+用法是创建MyThread对象，在onCreate中new出对象，调用start()方法休眠半秒钟之后，调用thread.handler.sendEmptyMessage(1);来处理此消息
+#HandlerThread是什么？
 
 
