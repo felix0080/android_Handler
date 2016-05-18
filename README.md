@@ -30,4 +30,9 @@ Handler内部与Looper进行关联，也就是在Handler的内部可以找到loo
 #HandlerThread创建时容易遇到的问题
 当我们创建Handler对象的时候会传入一个thread.looper对象参数，这个参数是创建在MyThread中的
 ，有可能发生的是当我们在创建Handler对象的时候looper对象并没有创建好，从而抛出了一个空指针异常，这种多线程并发的解决方法是new出一个HandlerThread对象，通过HandlerThread.getLooper就可以解决这种问题。
-
+# 如何在子线程中向主线程发送消息呢？
+在主线程中定义一个handler 在子线程也定义一个handler绑定一个LOOPER对象在里面调用主线程的sendMessageDelayed方法就可以实现向主线程传递参数了
+# 如何根更新UI？
+创建一个handler,创建一个子线程，在现成中调用handler.post方法，在里面就可以更新线程通过post调用，在内部会return 一个sendMessageDelayed方法，本质上是发送message<br>
+runOnUIThread(activity)实质上是通过handler机制更新UI的.<br>
+view自己的更新ui的方法，view.post(runnable)实质上也是通过Handler更新UI的
