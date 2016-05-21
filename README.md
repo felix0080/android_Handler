@@ -36,3 +36,7 @@ Handler内部与Looper进行关联，也就是在Handler的内部可以找到loo
 创建一个handler,创建一个子线程，在现成中调用handler.post方法，在里面就可以更新线程通过post调用，在内部会return 一个sendMessageDelayed方法，本质上是发送message<br>
 runOnUIThread(activity)实质上是通过handler机制更新UI的.<br>
 view自己的更新ui的方法，view.post(runnable)实质上也是通过Handler更新UI的
+# 能不能在非ui线程更新ui呢
+是可以的，可以直接在新创建在onCreate里的线程中调用更新ui的方法，不会报错，如果休眠，则会报错，产生的原因就是 在方法内部会调用一个invalidate方法，判断是否在主线程更新ui的程序要在ViewParent不为空的情况下，但是没有休眠的ViewParent还没有被实例化，所以没有调用checkThread方法来判断，所以可以更新，
+# 使用Handler要注意的事项
+checkThread. looper(在线程中创建handler必须要给出looper对象才可以)
